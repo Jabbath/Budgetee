@@ -69,6 +69,7 @@ Budget.getByEntryId = (entryId, callback) => {
         if (res.length > 0) {
             console.log('Retrieved entry with id: ', entryId);
             callback(null, res[0]);
+            return;
         }
 
         console.log('No entries with id: ', entryId);

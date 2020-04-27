@@ -3,7 +3,7 @@ module.exports = app => {
 
     app.post('/api/newItem', budget.newItem);
 
-    //app.get('/api/getItemByEntryId/:entryid', budget.getByEntryId);
+    app.get('/api/getItemByEntryId', budget.getByEntryId);
 
     //app.get('/api/getItemsByUserId/:userid', budget.getByUserId);
 }

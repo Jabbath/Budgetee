@@ -1,5 +1,7 @@
 const Budget = require('../models/budget.model.js');
 
+
+/* Create a new budget item in the database */
 exports.newItem = (req, res) => {
 
     //Validate the request
@@ -12,6 +14,7 @@ exports.newItem = (req, res) => {
         return;
     }
 
+    //Make a new budgetItem
     const budgetItem = new Budget({
         entryId: req.body.entryId,
         userId: req.body.userId,
@@ -19,8 +22,7 @@ exports.newItem = (req, res) => {
         amount: req.body.amount
     });
 
-    console.log(budgetItem);
-
+    //Write it to the DB and check for errors
     Budget.create(budgetItem, (err, data) => {
         if (err) {
             res.status(500).send({
@@ -31,5 +33,34 @@ exports.newItem = (req, res) => {
             res.send(data);
         }
    
+    });
+};
+
+/* Find all budget items for a given user */
+exports.getByEntryId = (req, res) => {
+
+    //Validate the request
+    if (!req.query.entryId) {
+        console.log(req.params)
+        res.status(400).send({
+            message: 'Params cannot be empty!'
+        });
+
+        return;
+    }
+
+    let entryId = req.query.entryId;
+
+    Budget.getByEntryId(entryId, (err, data) => {
+        if (err) {
+            res.status(500).send({
+                message: err.message
+            });
+
+            return;
+        }
+        else {
+            res.send(data)
+        }
     });
 };
