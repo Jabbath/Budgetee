@@ -35,7 +35,7 @@ Budget.create = (newBudget, callback) => {
 
 /* Given a userId, find all the budget entries 
  * made by that user */
-Budget.findByUserId = (userId, callback) => {
+Budget.getByUserId = (userId, callback) => {
     sql.query('SELECT * FROM budgetee WHERE userid=?', [userId], (err, res) => {
         if (err) {
             console.log('Error: ', err);
@@ -56,7 +56,7 @@ Budget.findByUserId = (userId, callback) => {
 
 /* Given an entryId find the budget entry with
  * that given id */
-Budget.findByEntryId = (entryId, callback) => {
+Budget.getByEntryId = (entryId, callback) => {
     sql.query('SELECT * FROM budgetee WHERE entryid=?', [entryId], (err, res) => {
         if (err) {
             console.log('Error: ', err);
