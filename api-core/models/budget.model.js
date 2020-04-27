@@ -8,26 +8,27 @@ const Budget = function (budgetItem) {
 };
 
 /*Formats a budget item for easier logging */
-Budget.toJSON = () => {
+Budget.toJSON = (budgetItem) => {
+    console
     return {
-        entryId: this.entryId,
-        userId: this.userId,
-        date: this.date,
-        amount: this.amount
+        entryId: budgetItem.entryId,
+        userId: budgetItem.userId,
+        date: budgetItem.date,
+        amount: budgetItem.amount
     };
 };
 
 /*Given a Budget object, creates a new budget item
  * in our database */
 Budget.create = (newBudget, callback) => {
-    sql.query('INSERT INTO budgetee SET ?', newBudget, (err, res) => {
+    sql.query('INSERT INTO budget SET ?', newBudget, (err, res) => {
         if (err) {
             console.log('Error: ', err);
             callback(err, null);
             return;
         }
 
-        let newBudgetObj = newBudget.toJSON();
+        let newBudgetObj = Budget.toJSON(newBudget);
         console.log('Created new budget item with: ', newBudgetObj);
         callback(null, newBudgetObj);
     });
@@ -36,7 +37,7 @@ Budget.create = (newBudget, callback) => {
 /* Given a userId, find all the budget entries 
  * made by that user */
 Budget.getByUserId = (userId, callback) => {
-    sql.query('SELECT * FROM budgetee WHERE userid=?', [userId], (err, res) => {
+    sql.query('SELECT * FROM budget WHERE userid=?', [userId], (err, res) => {
         if (err) {
             console.log('Error: ', err);
             callback(err, null);
@@ -57,7 +58,7 @@ Budget.getByUserId = (userId, callback) => {
 /* Given an entryId find the budget entry with
  * that given id */
 Budget.getByEntryId = (entryId, callback) => {
-    sql.query('SELECT * FROM budgetee WHERE entryid=?', [entryId], (err, res) => {
+    sql.query('SELECT * FROM budget WHERE entryid=?', [entryId], (err, res) => {
         if (err) {
             console.log('Error: ', err);
             callback(err, null);
@@ -74,3 +75,5 @@ Budget.getByEntryId = (entryId, callback) => {
         callback(null, null);
     });
 };
+
+module.exports = Budget;
