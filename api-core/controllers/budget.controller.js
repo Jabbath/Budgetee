@@ -36,12 +36,11 @@ exports.newItem = (req, res) => {
     });
 };
 
-/* Find all budget items for a given user */
+/* Find the budget item with the given Id */
 exports.getByEntryId = (req, res) => {
 
     //Validate the request
     if (!req.query.entryId) {
-        console.log(req.params)
         res.status(400).send({
             message: 'Params cannot be empty!'
         });
@@ -52,6 +51,33 @@ exports.getByEntryId = (req, res) => {
     let entryId = req.query.entryId;
 
     Budget.getByEntryId(entryId, (err, data) => {
+        if (err) {
+            res.status(500).send({
+                message: err.message
+            });
+
+            return;
+        }
+        else {
+            res.send(data)
+        }
+    });
+};
+
+/* Find all budget items for a given user Id */
+exports.getByUserId = (req, res) => {
+    //Validate the request
+    if (!req.query.userId) {
+        res.status(400).send({
+            message: 'Params cannot be empty!'
+        });
+
+        return;
+    }
+
+    let userId = req.query.userId;
+
+    Budget.getByUserId(userId, (err, data) => {
         if (err) {
             res.status(500).send({
                 message: err.message

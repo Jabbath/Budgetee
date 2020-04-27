@@ -5,5 +5,5 @@ module.exports = app => {
 
     app.get('/api/getItemByEntryId', budget.getByEntryId);
 
-    //app.get('/api/getItemsByUserId/:userid', budget.getByUserId);
+    app.get('/api/getItemsByUserId', budget.getByUserId);
 }

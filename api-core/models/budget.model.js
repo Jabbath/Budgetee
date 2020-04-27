@@ -48,6 +48,7 @@ Budget.getByUserId = (userId, callback) => {
         if (res.length > 0) {
             console.log('Retrieved entries for user with id: ', userId);
             callback(null, res);
+            return;
         }
 
         console.log('No entries for user with id: ', userId);
