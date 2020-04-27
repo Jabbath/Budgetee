@@ -14,6 +14,8 @@ app.get("/", (req, res) => {
     res.json({ message: "Welcome to the Budgetee API" });
 });
 
+require('./api-core/routes/routes.js')(app);
+
 //Start listening on port 3000
 app.listen(3000, () => {
     console.log("Listening on port 3000");
