@@ -1,7 +1,15 @@
 const express = require('express');
+const session = require('express-session')
 const bodyParser = require('body-parser');
 
 const app = express();
+
+//Handle authentication
+app.use(session({
+    secret: 'bike-handle-tart',
+    resave: true,
+    saveUninitialized: true
+}));
 
 //Handle JSON requests
 app.use(bodyParser.json());
